@@ -1,0 +1,423 @@
+@import "bootstrap";
+
+/* mixins, variables, etc: */
+
+$grayLightish: #eaeaea;
+$pinkish: #ffaaaa;
+$lightblue: #aaccff;
+$darkblue: #5577aa;
+$lightgreen: #99eecc;
+$darkgreen: #449977;
+$teal: #008080;
+$olive: #a0a010;
+$graydark: #668888;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+
+
+/* universal */
+
+  
+
+html {
+  font-family: Bookman Old Style;
+  overflow-y: scroll;
+}
+
+
+body {
+  font-family: Bookman Old Style;
+  padding-top: 120px;
+}
+
+section {
+  font-family: Bookman Old Style;
+  overflow: auto;
+}
+
+textarea {
+  font-family: Bookman Old Style;
+  resize: vertical;
+}
+
+.center {
+  font-family: Bookman Old Style;
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+
+/* typography */
+
+h1, h2, h3, h4, h5, h5a, h6, h7, h7a, h8, h9, h10, tag, course{
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 30px;
+  text-align: center;
+  color: $gray;
+}
+
+h2 {
+  font-size: 2.1em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $grayLight;
+}
+
+h3 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  text-align: left;
+  font-weight: bold;
+  color: $blue;
+}
+
+h4 {
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  text-align: left;
+  font-weight: bold;
+  color: $grayLight;
+}
+
+h5 {
+  font-size: 1.9em;
+  text-align: right;
+  color: $gray;
+}
+
+h5a {
+  font-size: 1.9em;
+  text-align: left;
+  color: $gray;
+}
+
+
+
+
+h6 {
+  font-size: 1.2em;
+  border: 1px solid $gray;
+  font-weight: normal;
+  text-transform: lowercase;
+  float:left
+}
+
+h7 {
+  font-size: 1.2em;
+  text-align: left;
+  font-weight: bold;
+  color: $red;
+}
+h7a {
+  font-size: 1.2em;
+  text-align: left;
+  color: $black;
+}
+
+h8 {
+  font-size: 0.6em;
+  font-weight: normal;
+  color: $grayLight;
+}
+
+h9 {
+  font-size: 2.1em;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: normal;
+  color: $gray;
+}
+
+h10 {
+  font-size: 1.1em;
+  text-align: left;
+  font-weight: normal;
+}
+
+tag {
+  font-family: Trebuchet MS;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: -1px;
+  font-size: 1.0em;
+  color: $graydark;
+}
+
+course {
+  font-family: Trebuchet MS;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: -1px;
+  font-size: 1.0em;
+  color: $graydark;
+}
+
+small {
+  font-size: 1em;
+}
+
+p {
+  font-family: Bookman Old Style;
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.8em;
+  font-family: Verdana;
+  color: $pinkish;
+  text-transform: uppercase;
+  letter-spacing: -3px;
+  padding-top: 9px;
+  font-weight: bold;
+  line-height: 1;
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 5px solid $grayLightish;
+  color: $grayLight;
+  a {
+    color: $gray;
+      &:hover { 
+    color: $grayDarker;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
+/* sidebar */
+
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.6em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+    }
+  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+/* forms */
+
+
+input, textarea, select, .uneditable-input {
+  font-size: 1.6em;
+  border: 1px solid #bbb;
+  width: auto;
+  padding: 5px;
+  height: auto;
+  @include box_sizing;
+}
+
+/* tables */
+
+table {
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table {
+  width: 100%;
+  margin-bottom: 18px;
+}
+.table th, .table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  border-top: 1px solid #ddd;
+}
+.table th {
+  font-weight: bold;
+  vertical-align: bottom;
+}
+.table td {
+  vertical-align: top;
+}
+.table thead:first-child tr th, .table thead:first-child tr td {
+  border-top: 0;
+}
+.table tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+.table-condensed th, .table-condensed td {
+  padding: 4px 5px;
+}
+.table-bordered {
+  border: 1px solid #ddd;
+  border-collapse: separate;
+  *border-collapse: collapsed;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.table-bordered th + th,
+.table-bordered td + td,
+.table-bordered th + td,
+.table-bordered td + th {
+  border-left: 1px solid #ddd;
+}
+.table-bordered thead:first-child tr:first-child th, .table-bordered tbody:first-child tr:first-child th, .table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+.table-bordered thead:first-child tr:first-child th:first-child, .table-bordered tbody:first-child tr:first-child td:first-child {
+  -webkit-border-radius: 4px 0 0 0;
+  -moz-border-radius: 4px 0 0 0;
+  border-radius: 4px 0 0 0;
+}
+.table-bordered thead:first-child tr:first-child th:last-child, .table-bordered tbody:first-child tr:first-child td:last-child {
+  -webkit-border-radius: 0 4px 0 0;
+  -moz-border-radius: 0 4px 0 0;
+  border-radius: 0 4px 0 0;
+}
+.table-bordered thead:last-child tr:last-child th:first-child, .table-bordered tbody:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+}
+.table-bordered thead:last-child tr:last-child th:last-child, .table-bordered tbody:last-child tr:last-child td:last-child {
+  -webkit-border-radius: 0 0 4px 0;
+  -moz-border-radius: 0 0 4px 0;
+  border-radius: 0 0 4px 0;
+}
+.table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+
+.table.centered td {
+        text-align: center;
+        vertical-align: middle;
+}
+
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 0px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 0px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-nvd0{background-color:#f8a102;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+.clear { /* generic container (i.e. div) for floating buttons */
+     overflow: hidden;
+     width: 100%;
+ }
+
+.bobutton {
+  font-family: 'Bookman Old Style';
+  font-weight: bold; 
+  padding-top: 8px;
+  color: white; 
+  background-color: #668888;
+  vertical-align: baseline length -50;
+  }
+
+.bobutton:hover {
+  color: #668888; 
+  background-color: $grayLightish;
+  }
+
+ a.button {
+     background: transparent url('bg_button_a.gif') no-repeat scroll top right;
+     color: #444;
+     display: block;
+     float: left;
+     font: normal 12px Bookman Old Style, sans-serif;
+     height: 24px;
+     margin-right: 6px;
+     padding-right: 18px; /* sliding doors padding */
+     text-decoration: none;
+ }
+
+ a.button span {
+     background: transparent url('bg_button_span.gif') no-repeat;
+     display: block;
+     line-height: 14px;
+     padding: 5px 0 5px 18px;
+ }
+
+ a.button:active {
+     background-position: bottom right;
+     color: #000;
+     outline: none; /* hide dotted outline in Firefox */
+ }
+
+ a.button:active span {
+     background-position: bottom left;
+     padding: 6px 0 4px 18px; /* push text down 1px */
+ }
+
+ /* users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
+  }
+}
