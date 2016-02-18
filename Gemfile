@@ -9,7 +9,6 @@ gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'mathjax-rails'
-gem 'turbolinks'
 
 group :development do
   gem 'sqlite3', '1.3.5'
@@ -29,10 +28,6 @@ gem 'jquery-ui-rails'
 gem 'prettyphoto-rails'
 
 group :test, :development do
-  gem 'rspec-rails', '2.10.0'
-  gem 'guard-rspec', '0.5.5'
-  gem 'guard-spork', '0.3.2'
-  gem 'spork', '0.9.0'
 end
 
 group :test do

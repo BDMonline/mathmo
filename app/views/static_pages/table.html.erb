@@ -1,0 +1,48 @@
+<style>
+
+
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#555555;
+	border-width: 10px;
+	border-color: #888888;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	width: 30px;
+	height: 30px;
+	border-width: 5px;
+	padding: 2px;
+	border-style: solid;
+	border-color: #777777;
+	background-color: #badcfe;
+}
+table.gridtable td {
+	width: 30px;
+	height: 30px;
+	border-width: 5px;
+	padding: 2px;
+	border-style: solid;
+	border-color: #777777;
+	background-color: #badcfe;
+	text-align: center;
+}
+</style>
+
+
+<h1>The Hungarian Algorithm</h1>
+<form autocomplete="off">
+	<div>
+<textarea  name="tabletext" rows="5" cols="20"> <%= @tabletext %> </textarea>
+</br>
+minimise <input type="radio" name = "maximum" value="no" <%= "checked" if !@maximise %>>
+maximise <input type="radio" name = "maximum" value="yes" <%= "checked" if @maximise %>>
+</br>
+</div>
+<input type="submit" class="bobutton" value="Submit" alt="Submit">
+
+<div>
+<%= @tablehtml.html_safe %>
+</div>
+</form>

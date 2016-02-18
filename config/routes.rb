@@ -3,6 +3,12 @@ Mathmo::Application.routes.draw do
 
   get "static_pages/help"
 
+  get "static_pages/table"
+  post "static_pages/table"
+
+  root to: "static_pages#home"
+  mathjax 'mathjax'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
