@@ -41,8 +41,8 @@ section {
 }
 
 textarea {
-  font-family: Bookman Old Style;
-  resize: vertical;
+  font-size: 5pt;
+  font-family: Courier;
 }
 
 .center {
@@ -364,9 +364,11 @@ table {
  }
 
 .bobutton {
-  font-family: 'Bookman Old Style';
-  font-weight: bold; 
-  padding-top: 8px;
+   display: block;
+   font: normal 12px Bookman Old Style, sans-serif;
+   height: 24px;
+   /* margin-right: 6px; */
+   /*padding-right: 18px; */ /* sliding doors padding */
   color: white; 
   background-color: #668888;
   vertical-align: baseline length -50;

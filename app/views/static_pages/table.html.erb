@@ -25,7 +25,7 @@ table.gridtable td {
 	padding: 2px;
 	border-style: solid;
 	border-color: #777777;
-	background-color: #badcfe;
+	background-color: #bbdddd;
 	text-align: center;
 }
 </style>
@@ -34,7 +34,7 @@ table.gridtable td {
 <h1>The Hungarian Algorithm</h1>
 <form autocomplete="off">
 	<div>
-<textarea  name="tabletext" rows="5" cols="20"> <%= @tabletext %> </textarea>
+<textarea name="tabletext" style="font-size: 8pt" rows="5" cols="20"> <%= @tabletext %> </textarea>
 </br>
 minimise <input type="radio" name = "maximum" value="no" <%= "checked" if !@maximise %>>
 maximise <input type="radio" name = "maximum" value="yes" <%= "checked" if @maximise %>>

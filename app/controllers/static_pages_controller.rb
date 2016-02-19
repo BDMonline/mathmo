@@ -9,8 +9,8 @@ class StaticPagesController < ApplicationController
   def table
   	palette = {}
   	palette["match"] = "dd44ff"
-  	palette["double"] = "ff11dd"
-  	palette["single"] = "ee99ee"
+  	palette["double"] = "779999"
+  	palette["single"] = "99bbbb"
   	if params && params[:tabletext]
   		@tabletext = params[:tabletext].strip
   	else
