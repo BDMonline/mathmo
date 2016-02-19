@@ -33,6 +33,7 @@ html {
 body {
   font-family: Bookman Old Style;
   padding-top: 120px;
+  background-color: #eeffff;
 }
 
 section {
@@ -63,8 +64,8 @@ h1, h2, h3, h4, h5, h5a, h6, h7, h7a, h8, h9, h10, tag, course{
 h1 {
   font-size: 3em;
   margin-bottom: 30px;
-  text-align: center;
-  color: $gray;
+  text-align: left;
+  color: $graydark;
 }
 
 h2 {
