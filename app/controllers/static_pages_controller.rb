@@ -373,7 +373,27 @@ class StaticPagesController < ApplicationController
 				end
 
 				tableau = newtableau
-				puts "#{tableau}"
+				@basicvars = Array.new(@n_const,0)
+				@basicvars << -1
+				n.times do |i|
+					basic = true
+					oneyet = false
+					oneline = nil
+					(@n_const + 1).times do |j|
+						if tableau[j][i] == 1.to_r
+							puts "1 at #{j} #{i}"
+							if oneyet
+								basic = false
+							else
+								oneyet = true
+								oneline = j
+							end
+						elsif tableau[j][i] != 0.to_r
+							basic = false
+						end
+					end
+					@basicvars[oneline] = i if basic && oneline
+				end
 
 				iterations << text_table(@varnames,@n_const,@basicvars,tableau)
 			else
