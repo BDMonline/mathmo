@@ -1,4 +1,35 @@
 module ApplicationHelper
+	def varnames(n_vars,n_const) 
+	    if n_vars < 4 and n_const < 6
+	        return ["P"] + ["x","y","z"][0..n_vars-1] + ["r","s","t","u","v"][0..n_const - 1]
+	    elsif  n_vars == 4 and n_const < 6
+	        return ["P"] + ["w","x","y","z"] + ["r","s","t","u","v"][0..n_const - 1]
+	    else
+	        return ["P"] + ["p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"][-n_vars..-1] + ["a","b","c","d","e","f","g","h","i","j","k","l","m"][0..n_const - 1]
+	    end
+	end
+
+	def mathjax_frac(r)
+		if r.denominator == 1
+			return '\('+r.numerator.to_s+'\)'
+		else
+			return '\( \frac {' + r.numerator.to_s + '} {' + r.denominator.to_s + '} \)'
+		end
+	end
+
+	def text_table(varnames,n_const,basicvars,tableau)
+
+		texttab = []
+		line1 = varnames.clone
+		line1[0] = "Basic Var"
+		line1 << "Value"
+		texttab << line1
+		(1 + n_const).times do |i|
+			texttab << [varnames[basicvars[i] + 1]] + tableau[i].map {|x| mathjax_frac(x)}
+		end
+		return texttab
+		
+	end
 
 	def tablify(table, colours = nil)
 		tablehtml = '<table class="gridtable">'

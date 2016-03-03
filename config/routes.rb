@@ -5,6 +5,8 @@ Mathmo::Application.routes.draw do
 
   get "static_pages/table"
   post "static_pages/table"
+  get "static_pages/simplex"
+  post "static_pages/simplex"
 
   root to: "static_pages#home"
   mathjax 'mathjax'

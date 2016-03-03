@@ -1,0 +1,89 @@
+<style>
+
+
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#555555;
+	border-width: 10px;
+	border-color: #888888;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	width: 30px;
+	height: 30px;
+	border-width: 5px;
+	padding: 2px;
+	border-style: solid;
+	border-color: #777777;
+	background-color: #badcfe;
+}
+table.gridtable td {
+	width: 30px;
+	height: 30px;
+	border-width: 5px;
+	padding: 2px;
+	border-style: solid;
+	border-color: #335555;
+	background-color: #bbdddd;
+	text-align: center;
+}
+</style>
+
+
+<h1>The Simplex Algorithm</h1>
+
+<br>
+
+<form autocomplete="off">
+	<% unless params and params[:n_vars] and params[:n_const] and !@invalid_input %>
+		<br><br>Number of variables <input type="text" name="n_vars" value=<%= @n_vars.to_s%>>
+		<br><br>Number of constraints <input type="text" name="n_const" value=<%= @n_const.to_s %>>
+		<br><input type="submit" class="bobutton" value="Submit" alt="Submit"><br><br>
+		<% if @invalid_input %>
+			<br>Please input positive whole numbers for the numbers of variables and constraints<br><br>
+		<% end %>
+	<% else %>
+		<input type="hidden" name="n_vars" value=<%= @n_vars.to_s%>>
+		<input type="hidden" name="n_const" value=<%= @n_const.to_s %>>
+
+		Objective function name: 
+		<input type="text" size="1" name="varnames[]" value=<%= @varnames[0] %>> <br>
+		Decision variable names: <% @varnames[1..@n_vars].each do |name| %> 
+		<input type="text" size="1" name="varnames[]" value=<%= name %>> 
+		<% end %>
+		<br>
+		Slack variable names: <% @varnames[@n_vars + 1..@n_vars + @n_const].each do |name| %> 
+			<input type="text" size="1" name="varnames[]" value=<%= name %>> 
+		<% end %>
+		<br><input type="submit" class="bobutton" value="Change" alt="Change"><br><br>
+
+		Please enter the coeffients and values to complete the constraints and the objective<br><br>
+
+		The objective is to maximise <%= @varnames[0] %> = 
+		<% (1..@n_vars).each do |i| %> 
+		<input type="text" style="text-align:right" size="1"  name="objcoeff[]" value= <%= @objcoeff[i-1]%>>  <%= @varnames[1..@n_vars][i-1]%> <%= " + " if i < @n_vars %> 
+		<% end %>
+		<br><br>
+
+		The constraints are:<br>
+
+  		<% @n_const.times do |i| %>
+		<% (1..@n_vars).each do |j| %> 
+		<input type="text" style="text-align:right" size="1" name="constcoeff[]" value= <%= @constcoeff[i][j-1]%>>  <%= @varnames[j]%> <%= " + " if j < @n_vars %> 
+		<% end %>
+		\(\leq\) <input type="text" size="1"name="constcoeff[]" value= <%= @constcoeff[i][@n_vars]%>>  <br>
+
+		<% end %>
+		<br><input type="submit" class="bobutton" value="Submit" alt="Submit"><br><br>
+
+		<%= @table.html_safe %>
+
+
+
+
+	<% end %>
+
+	
+
+</form>

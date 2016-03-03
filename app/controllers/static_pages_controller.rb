@@ -9,8 +9,8 @@ class StaticPagesController < ApplicationController
   def table
   	palette = {}
   	palette["match"] = "ffffff"
-  	palette["double"] = "779999"
-  	palette["single"] = "99bbbb"
+  	palette["double"] = "889d9d"
+  	palette["single"] = "aabfbf"
   	if params && params[:tabletext]
   		@tabletext = params[:tabletext].strip
   	else
@@ -243,4 +243,185 @@ class StaticPagesController < ApplicationController
 	
 
   end
+
+  def simplex
+
+  	html = ""
+
+  	@invalid_input = false
+  	if params and params[:n_vars] and params[:n_const]
+  		@n_vars = params[:n_vars].to_i
+  		@n_const = params[:n_const].to_i
+
+  		params[:n_vars] = params[:n_vars].to_i
+  		params[:n_const] = params[:n_const].to_i
+  		@invalid_input = true unless params[:n_vars] > 0 && params[:n_const] > 0
+
+  		@varnames = params[:varnames]
+		@varnames ||= varnames(@n_vars,@n_const)
+  	
+
+	  	@objcoeff = []
+	  	@n_vars.times do |i|
+	  		if params[:objcoeff]
+	  			@objcoeff[i] = params[:objcoeff][i]
+	  		else
+	  			@objcoeff[i] = 0
+	  		end
+	  	end
+
+	  	@constcoeff = []
+	  	@n_const.times do |i|
+	  		@constcoeff[i]=[]
+		  	(@n_vars+1).times do |j|
+		  		if params[:constcoeff]
+		  			@constcoeff[i][j] = params[:constcoeff][i*(@n_vars + 1) + j]
+		  		else
+		  			@constcoeff[i][j] = 0
+		  		end
+		  	end	
+		end
+
+		tableau = []
+		@n_const.times do |i|
+			line = @constcoeff[i][0..-2].map {|x| x.to_r}
+			@n_const.times do |j|
+				if i == j
+					line << 1.to_r
+				else
+					line << 0.to_r
+				end
+			end
+			line << @constcoeff[i][-1].to_r
+			tableau << line
+		end
+		pline = @objcoeff.map {|x| -x.to_r}
+		(1 + @n_const).times do |j|	
+			pline << 0.to_r
+		end
+		tableau << pline
+		n = @n_const + @n_vars
+		@basicvars = Array.new(@n_const,0)
+		@basicvars << -1
+		n.times do |i|
+			basic = true
+			oneyet = false
+			oneline = nil
+			(@n_const + 1).times do |j|
+				if tableau[j][i] == 1.to_r
+					puts "1 at #{j} #{i}"
+					if oneyet
+						basic = false
+					else
+						oneyet = true
+						oneline = j
+					end
+				elsif tableau[j][i] != 0.to_r
+					basic = false
+				end
+			end
+			@basicvars[oneline] = i if basic && oneline
+		end
+
+		iterations = [text_table(@varnames,@n_const,@basicvars,tableau)]
+
+		puts iterations
+
+		optimised = false
+
+		until optimised
+			pivcol = nil
+			min = 0
+			n.times do |i|
+				entry = tableau[-1][i]
+				if entry < 0 and (pivcol == nil or entry<min)
+					pivcol = i
+					min = entry
+				end
+			end
+
+			puts "pivcol #{pivcol}  min #{min}"
+
+			if pivcol
+
+
+				pivrow = nil
+				min = nil
+				1+@n_const.times do |i|
+					unless tableau[i][pivcol] <= 0
+						ratio = tableau[i][-1]/tableau[i][pivcol]
+						if pivrow == nil or ratio < min
+							pivrow = i
+							min = ratio
+						end
+					end
+				end
+
+
+				puts "pivrow #{pivrow} min #{min}"
+
+				newtableau = []
+
+				(1+@n_const).times do |i|
+					line = []
+					if i == pivrow
+						line = tableau[i].map {|x| x/tableau[pivrow][pivcol]}
+					else
+						line = (0..n).map {|x| tableau[i][x] - tableau[pivrow][x]*tableau[i][pivcol]/tableau[pivrow][pivcol]}
+					end
+					newtableau << line
+				end
+
+				tableau = newtableau
+				puts "#{tableau}"
+
+				iterations << text_table(@varnames,@n_const,@basicvars,tableau)
+			else
+
+				optimised = true
+			end
+		end
+
+
+
+
+
+
+
+			
+
+		@table = ""
+		iterations.each do |iteration|
+			@table += tablify(iteration) + "<br><br>"
+		end
+  	end
+  	
+
+	
+
+
+
+  	col = nil
+	min = 0
+
+
+	# n_vars.times do |i| 
+	#     c = tableau[-1][i] 
+	#     if c < min
+	#         min = c
+	#         col = i
+	#     end
+	# end
+
+	unless col
+	    html += "</br></br>This table is optimised because there are no negative coefficients on the Profit line"
+	else
+	    html += "</br></br>This table is not optimised because there are negative coefficients on the Profit line"
+	    html += "</br></br>We need to choose one of the negative coefficients as the column for our pivot"
+	    html += "</br></br>Please use the checkboxes to select the column you'd like to use."
+	end
+  end
+
 end
+
+
