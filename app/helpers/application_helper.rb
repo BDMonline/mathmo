@@ -13,7 +13,11 @@ module ApplicationHelper
 		if r.denominator == 1
 			return '\('+r.numerator.to_s+'\)'
 		else
-			return '\( \frac {' + r.numerator.to_s + '} {' + r.denominator.to_s + '} \)'
+			if r.numerator < 0
+				return '\( -\frac {' + (-r).numerator.to_s + '} {' + r.denominator.to_s + '} \)'
+			else
+				return '\( \frac {' + r.numerator.to_s + '} {' + r.denominator.to_s + '} \)'
+			end
 		end
 	end
 
@@ -28,7 +32,7 @@ module ApplicationHelper
 			texttab << [varnames[basicvars[i] + 1]] + tableau[i].map {|x| mathjax_frac(x)}
 		end
 		return texttab
-		
+
 	end
 
 	def tablify(table, colours = nil)
