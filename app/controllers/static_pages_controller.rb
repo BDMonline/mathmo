@@ -323,12 +323,14 @@ class StaticPagesController < ApplicationController
 			@basicvars[oneline] = i if basic && oneline
 		end
 
-		iterations = [text_table(@varnames,@n_const,@basicvars,tableau)]
+		#iterations = [text_table(@varnames,@n_const,@basicvars,tableau)]
+		iterations = []
 
-		puts iterations
+		#puts iterations
 
 		optimised = false
 
+		row_ops = nil
 		until optimised
 			pivcol = nil
 			min = 0
@@ -342,7 +344,12 @@ class StaticPagesController < ApplicationController
 
 			puts "pivcol #{pivcol}  min #{min}"
 
+
+			ratios = nil
+
 			if pivcol
+
+				ratios = []
 
 
 				pivrow = nil
@@ -350,27 +357,44 @@ class StaticPagesController < ApplicationController
 				1+@n_const.times do |i|
 					unless tableau[i][pivcol] <= 0
 						ratio = tableau[i][-1]/tableau[i][pivcol]
+						ratios << mathjax_frac(tableau[i][-1]) + '\( \div \)' + mathjax_frac(tableau[i][pivcol]) + " = " + mathjax_frac(ratio)
 						if pivrow == nil or ratio < min
 							pivrow = i
 							min = ratio
 						end
+					else
+						ratios << "N/A"
 					end
 				end
 
 
-				puts "pivrow #{pivrow} min #{min}"
+				#puts "pivrow #{pivrow} min #{min}"
 
 				newtableau = []
+				iterations << text_table(@varnames,@n_const,@basicvars,tableau, row_ops, ratios)
+				row_ops = []
 
 				(1+@n_const).times do |i|
 					line = []
+					row_op = ''
 					if i == pivrow
 						line = tableau[i].map {|x| x/tableau[pivrow][pivcol]}
+						row_op +=  mathjax_frac(1/tableau[pivrow][pivcol]) + '\(R' + (i+1).to_s + '\)'
 					else
-						line = (0..n).map {|x| tableau[i][x] - tableau[pivrow][x]*tableau[i][pivcol]/tableau[pivrow][pivcol]}
+						puts "i=#{i}  pivrow=#{pivrow}  pivcol=#{pivcol}"
+						line = (0..n).map {|x| tableau[i][x] - tableau[pivrow][x]*tableau[i][pivcol]/tableau[pivrow][pivcol]}			
+						if tableau[i][pivcol] > 0
+							sign = "-"
+						else
+							sign = "+"
+						end
+						row_op += '\(R' + (i+1).to_s + sign + '\)' + mathjax_frac(tableau[i][pivcol].abs) + '\(R' + (pivrow + 1).to_s + '\)'
 					end
 					newtableau << line
+					row_ops << row_op
 				end
+
+
 
 				tableau = newtableau
 				@basicvars = Array.new(@n_const,0)
@@ -381,7 +405,7 @@ class StaticPagesController < ApplicationController
 					oneline = nil
 					(@n_const + 1).times do |j|
 						if tableau[j][i] == 1.to_r
-							puts "1 at #{j} #{i}"
+							#puts "1 at #{j} #{i}"
 							if oneyet
 								basic = false
 							else
@@ -395,11 +419,13 @@ class StaticPagesController < ApplicationController
 					@basicvars[oneline] = i if basic && oneline
 				end
 
-				iterations << text_table(@varnames,@n_const,@basicvars,tableau)
 			else
 
 				optimised = true
+
+				iterations << text_table(@varnames,@n_const,@basicvars,tableau, row_ops, nil)
 			end
+
 		end
 
 

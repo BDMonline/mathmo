@@ -21,15 +21,20 @@ module ApplicationHelper
 		end
 	end
 
-	def text_table(varnames,n_const,basicvars,tableau)
+	def text_table(varnames,n_const,basicvars,tableau,row_ops,ratios)
 
 		texttab = []
 		line1 = varnames.clone
 		line1[0] = "Basic Var"
 		line1 << "Value"
+		line1 << "Row op" if row_ops
+		line1 << "Ratio" if ratios
 		texttab << line1
 		(1 + n_const).times do |i|
-			texttab << [varnames[basicvars[i] + 1]] + tableau[i].map {|x| mathjax_frac(x)}
+			line = [varnames[basicvars[i] + 1]] + tableau[i].map {|x| mathjax_frac(x)}
+			line << row_ops[i] if row_ops
+			line << ratios[i] if ratios
+			texttab << line
 		end
 		return texttab
 
