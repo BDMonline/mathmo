@@ -28,6 +28,7 @@ end
 gem 'jquery-rails', '2.3.0'
 gem 'jquery-ui-rails'
 gem 'prettyphoto-rails'
+gem 'turbolinks', '~> 2.5', '>= 2.5.3'
 
 group :test, :development do
   #gem 'rspec-rails', '2.10.0'

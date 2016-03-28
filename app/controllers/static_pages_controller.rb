@@ -384,11 +384,11 @@ class StaticPagesController < ApplicationController
 						puts "i=#{i}  pivrow=#{pivrow}  pivcol=#{pivcol}"
 						line = (0..n).map {|x| tableau[i][x] - tableau[pivrow][x]*tableau[i][pivcol]/tableau[pivrow][pivcol]}			
 						if tableau[i][pivcol] > 0
-							sign = "-"
+							sign = " - "
 						else
-							sign = "+"
+							sign = " + "
 						end
-						row_op += '\(R' + (i+1).to_s + sign + '\)' + mathjax_frac(tableau[i][pivcol].abs) + '\(R' + (pivrow + 1).to_s + '\)'
+						row_op += '\(R' + (i+1).to_s + sign + ' \)' + mathjax_frac(tableau[i][pivcol].abs) + '\(R' + (pivrow + 1).to_s + '\)'
 					end
 					newtableau << line
 					row_ops << row_op
@@ -436,10 +436,17 @@ class StaticPagesController < ApplicationController
 
 			
 
-		@table = ""
-		iterations.each do |iteration|
-			@table += tablify(iteration) + "<br><br>"
+		@table = '<div class="simplex"> '
+		iterations.count.times do |index|
+			if index == 0
+				cl = ' first'
+			else
+				cl = " other"
+			end
+			@table += '<div class="hidden clickme' + cl + '">  Reveal next step  </div> <br> <br>
+			<div class="hidden">' + tablify(iterations[index]) + "</div><br><br>"
 		end
+		@table += '</div>'
   	end
   	
 

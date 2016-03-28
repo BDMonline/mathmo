@@ -21,6 +21,7 @@ puts varnames(n_vars,n_const)
 html = tablify(tableau)
 
 ## choose pivot col
+
 col = nil
 min = 0
 
@@ -38,6 +39,5 @@ else
     html += "</br></br>This table is not optimised because there are negative coefficients on the Profit line"
     html += "</br></br>We need to choose one of the negative coefficients as the column for our pivot"
     html += "</br></br>Please use the checkboxes to select the column you'd like to use."
-
 
 
